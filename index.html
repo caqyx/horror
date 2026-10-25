@@ -8,10 +8,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&display=swap" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="css/style.css">
+<style>
+/* early loading screen: pure HTML/CSS, visible from the first paint (independent of style.css / fonts / scripts) */
+#boot-screen{position:fixed;inset:0;z-index:99999;background:#050505;color:#d8d8d0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'VT323','Courier New',monospace;transition:opacity .5s;overflow:hidden}
+#boot-screen.gone{opacity:0;pointer-events:none}
+#boot-screen:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 3px);pointer-events:none}
+#boot-rec{position:absolute;top:28px;left:34px;font-size:28px;letter-spacing:2px}
+#boot-rec i{color:#e02020;font-style:normal;animation:bootblink 1s steps(2,start) infinite}
+#boot-play{position:absolute;top:28px;right:34px;font-size:28px;letter-spacing:2px}
+#boot-title{font-size:44px;letter-spacing:6px;text-shadow:2px 0 rgba(255,0,0,.45),-2px 0 rgba(0,255,255,.35)}
+#boot-label{font-size:30px;letter-spacing:4px;margin:18px 0 14px;animation:bootblink 1.4s steps(2,start) infinite}
+#boot-bar{width:min(420px,76vw);height:16px;border:2px solid #d8d8d0;padding:2px}
+#boot-fill{height:100%;width:0;background:#d8d8d0;transition:width .2s linear}
+#boot-pct{font-size:26px;margin-top:10px;letter-spacing:3px}
+#boot-err{display:none;color:#ff5040;font-size:24px;max-width:min(560px,86vw);text-align:center;margin-top:20px;white-space:pre-wrap}
+#boot-screen.err #boot-label{animation:none;color:#ff5040}
+#boot-screen.err #boot-err{display:block}
+@keyframes bootblink{50%{opacity:.25}}
+</style>
 </head>
 <body>
+<div id="boot-screen" role="status" aria-live="polite">
+  <div id="boot-rec"><i>&#9679;</i> REC</div><div id="boot-play">PLAY &#9654;</div>
+  <div id="boot-title">ŚWIĘTA ŁUCJA</div>
+  <div id="boot-label">ŁADOWANIE TAŚMY…</div>
+  <div id="boot-bar"><div id="boot-fill"></div></div>
+  <div id="boot-pct">0%</div>
+  <div id="boot-err"></div>
+</div>
 <div id="hud" class="hidden">
   <div class="corner tl"></div><div class="corner tr"></div>
   <div class="corner bl"></div><div class="corner br"></div>
@@ -211,42 +237,63 @@
     <button id="btn-ending-menu" class="menu-btn">Menu główne</button>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-  if (!window.THREE) {
-    document.addEventListener('DOMContentLoaded', function () {
-      var e = document.getElementById('boot-error');
-      if (e) e.textContent = 'Nie udało się wczytać Three.js — potrzebne połączenie z internetem przy pierwszym uruchomieniu. Sprawdź połączenie i odśwież stronę.';
-      ['btn-start', 'btn-continue'].forEach(function (id) { var b = document.getElementById(id); if (b) b.disabled = true; });
-    });
+/* Boot loader: scripts are fetched in parallel but executed in order (async=false, works from file://);
+   progress = weighted share of loaded scripts + build stages reported by main.js via Boot.set(). */
+(function () {
+  var B = window.Boot = { pct: 0, target: 0, failed: false, hidden: false };
+  var fill = document.getElementById('boot-fill'), pct = document.getElementById('boot-pct'), label = document.getElementById('boot-label'), errEl = document.getElementById('boot-err'), scr = document.getElementById('boot-screen');
+  function tt(k, v) { try { var r = window.T ? window.T(k) : k; return (r === k || r == null) ? v : r; } catch (e) { return v; } }
+  function draw() { var p = Math.round(B.pct); if (fill) fill.style.width = p + '%'; if (pct) pct.textContent = p + '%'; }
+  // smooth creep toward the target (heavy scripts report nothing while they download)
+  setInterval(function () { if (B.failed) return; if (B.pct < B.target) B.pct = Math.min(B.target, B.pct + Math.max(0.4, (B.target - B.pct) * 0.15)); else if (B.pct < B.cap) B.pct += 0.08; draw(); }, 50);
+  B.cap = 0;
+  B.set = function (p, text) { if (B.failed) return; if (p > B.target) B.target = Math.min(100, p); B.cap = Math.min(99, B.target + 6); if (text && label) label.textContent = text; };
+  B.fail = function (msg) {
+    if (B.failed || B.hidden) return; B.failed = true;
+    if (scr) scr.className += ' err';
+    if (label) label.textContent = tt('boot.failed', 'BŁĄD ŁADOWANIA');
+    if (errEl) errEl.textContent = msg;
+  };
+  B.done = function () {
+    if (B.failed || B.hidden) return; B.hidden = true; B.target = B.pct = 100; draw();
+    setTimeout(function () { if (scr) scr.className += ' gone'; setTimeout(function () { if (scr && scr.parentNode) scr.parentNode.removeChild(scr); }, 700); }, 150);
+  };
+  window.addEventListener('error', function (e) {
+    if (B.hidden || B.failed) return;
+    if (e && e.target && e.target !== window) return;   // resource errors are handled by the loader
+    B.fail((e && e.message) || 'error');
+  });
+  var cdnMsg = function () { return tt('boot.noThree', 'Nie udało się wczytać Three.js — potrzebne połączenie z internetem przy pierwszym uruchomieniu. Sprawdź połączenie i odśwież stronę.'); };
+  // [src, weight, kind]  kind: 'req' (failure = fatal), 'cdn' (three.js), 'opt' (failure ignored)
+  var L = [
+    ['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 10, 'cdn'],
+    ['js/i18n.js', 1], ['js/progress.js', 1], ['js/texdata.js', 30], ['js/textures.js', 4], ['js/fx.js', 1], ['js/atmos.js', 1],
+    ['js/sounddata.js', 14], ['js/musicdata.js', 8, 'opt'], ['js/audio.js', 4], ['js/doorfx.js', 1], ['js/level.js', 4], ['js/avatar.js', 1],
+    ['js/player.js', 1], ['js/monster.js', 3], ['js/scares.js', 2], ['js/fear.js', 1], ['js/puzzles.js', 1], ['js/story.js', 2],
+    ['js/sidequests.js', 1], ['js/archive.js', 2], ['js/intro.js', 3], ['js/flashboost.js', 1], ['js/spectator.js', 1],
+    ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js', 3, 'opt'],
+    ['js/net.js', 2], ['js/voice.js', 1], ['js/ui.js', 1], ['js/main.js', 1]
+  ];
+  var total = 0, got = 0, i;
+  for (i = 0; i < L.length; i++) total += L[i][1];
+  var LOADSHARE = 40;   // scripts = first 40% of the bar, build stages (main.js) the rest
+  function mk(item) {
+    var el = document.createElement('script');
+    el.async = false; el.src = item[0];
+    el.onload = function () {
+      got += item[1]; B.set(got / total * LOADSHARE);
+      if (item[2] === 'cdn' && !window.THREE) B.fail(cdnMsg());
+    };
+    el.onerror = function () {
+      if (item[2] === 'opt') { got += item[1]; B.set(got / total * LOADSHARE); return; }
+      B.fail(item[2] === 'cdn' ? cdnMsg() : (tt('boot.noScript', 'Nie udało się wczytać pliku: ') + item[0]));
+    };
+    document.body.appendChild(el);
   }
+  B.set(1);
+  for (i = 0; i < L.length; i++) mk(L[i]);
+})();
 </script>
-<script src="js/i18n.js"></script>
-<script src="js/progress.js"></script>
-<script src="js/texdata.js"></script>
-<script src="js/textures.js"></script>
-<script src="js/fx.js"></script>
-<script src="js/atmos.js"></script>
-<script src="js/sounddata.js"></script>
-<script src="js/audio.js"></script>
-<script src="js/doorfx.js"></script>
-<script src="js/level.js"></script>
-<script src="js/avatar.js"></script>
-<script src="js/player.js"></script>
-<script src="js/monster.js"></script>
-<script src="js/scares.js"></script>
-<script src="js/fear.js"></script>
-<script src="js/puzzles.js"></script>
-<script src="js/story.js"></script>
-<script src="js/sidequests.js"></script>
-<script src="js/archive.js"></script>
-<script src="js/intro.js"></script>
-<script src="js/flashboost.js"></script>
-<script src="js/spectator.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="js/net.js"></script>
-<script src="js/voice.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>

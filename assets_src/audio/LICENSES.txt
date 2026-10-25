@@ -39,3 +39,20 @@ electric_buzz/buzz_0.ogg                      https://opengameart.org/content/el
 Note: the CC0 license was read from each page text ("CC0"); the OpenGameArt search was filtered to CC0.
 Authors were taken from the page's uploader entry; compilation packs may contain work by several people,
 all released under CC0 by the uploader.
+
+Music score (js/musicdata.js, v14)
+==================================
+Original compositions written for this game and synthesised procedurally in WebAudio (no samples, no third-party audio);
+released as CC0 / public domain by the project. Source: assets_src/audio/music/composer.js (+ the rendered *.webm, README.txt).
+Stereo Opus-in-WebM (WebCodecs), 32-48 kbps, each file = one seamless loop + 0.6 s of overlap.
+
+Track      Loop length   Used for
+---------  ------------  --------------------------------------------------------------
+menu       51.4 s        main menu theme (music box + piano + drone, A minor)
+game       48.0 s        in-game low bed, only audible as tension rises
+chase      35.1 s        normal chase (164 BPM, in sync with the procedural chase grid)
+final      41.0 s        final chase (164 BPM, root climbs a semitone every 4 bars)
+end_sad    55.4 s        endings A / D (D minor elegy)
+end_soft   40.0 s        endings B / F (lullaby waltz, F major)
+end_dark   48.0 s        endings C / E (unsettling clusters, detuned music box)
+credits    60.0 s        credits (reflective theme)
