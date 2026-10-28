@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta name="author" content="Szymon Rogalski">
-<meta name="copyright" content="© 2026 Szymon Rogalski. All rights reserved.">
+<meta name="author" content="Caqyx">
+<meta name="copyright" content="© 2026 Caqyx. All rights reserved.">
 <meta charset="utf-8">
-<title>Święta Łucja</title>
+<title>Saint Lucy</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,17 +23,17 @@
 #boot-bar{width:min(420px,76vw);height:16px;border:2px solid #d8d8d0;padding:2px}
 #boot-fill{height:100%;width:0;background:#d8d8d0;transition:width .2s linear}
 #boot-pct{font-size:26px;margin-top:10px;letter-spacing:3px}
-#boot-err{display:none;color:#ff5040;font-size:24px;max-width:min(560px,86vw);text-align:center;margin-top:20px;white-space:pre-wrap}
+#boot-err{display:block;visibility:hidden;min-height:96px;color:#ff5040;font-size:24px;max-width:min(560px,86vw);text-align:center;margin-top:20px;white-space:pre-wrap}
 #boot-screen.err #boot-label{animation:none;color:#ff5040}
-#boot-screen.err #boot-err{display:block}
+#boot-screen.err #boot-err{visibility:visible}
 @keyframes bootblink{50%{opacity:.25}}
 </style>
 </head>
 <body>
 <div id="boot-screen" role="status" aria-live="polite">
   <div id="boot-rec"><i>&#9679;</i> REC</div><div id="boot-play">PLAY &#9654;</div>
-  <div id="boot-title">ŚWIĘTA ŁUCJA</div>
-  <div id="boot-label">ŁADOWANIE TAŚMY…</div>
+  <div id="boot-title">SAINT LUCY</div>
+  <div id="boot-label">LOADING TAPE…</div>
   <div id="boot-bar"><div id="boot-fill"></div></div>
   <div id="boot-pct">0%</div>
   <div id="boot-err"></div>
@@ -42,7 +42,7 @@
   <div class="corner tl"></div><div class="corner tr"></div>
   <div class="corner bl"></div><div class="corner br"></div>
   <div id="rec"><span class="dot">&#9679;</span> REC</div>
-  <div id="timestamp">PAŹ 14 2004&nbsp;&nbsp;03:12:44</div>
+  <div id="timestamp">OCT 14 2004&nbsp;&nbsp;03:12:44</div>
   <div id="mode">SP</div>
   <div id="nv-tag">NV</div>
   <div id="cam-battery"><div id="cam-battery-fill"></div></div>
@@ -54,20 +54,20 @@
   <div id="crosshair"></div>
 </div>
 <div id="prompt"></div>
-<div id="lock-hint">Kliknij, aby sterować</div>
+<div id="lock-hint">Click to take control</div>
 <div id="objective"></div>
 <div id="subtitles"></div>
 <div id="hint"><div id="hint-title"></div><div id="hint-body"></div></div>
 <div id="letterbox-top" class="letterbox"></div>
 <div id="letterbox-bottom" class="letterbox"></div>
-<div id="skip-hint"><span id="skip-text">Przytrzymaj SPACJĘ, aby pominąć</span><div id="skip-bar"><div id="skip-fill"></div></div></div>
+<div id="skip-hint"><span id="skip-text">Hold SPACE to skip</span><div id="skip-bar"><div id="skip-fill"></div></div></div>
 <div id="hide-overlay"></div>
 <div id="cards"><div id="card-text"></div></div>
-<div id="cam-overlay"><div id="cam-label"></div><div class="cam-rec"><span class="dot">&#9679;</span> REC</div><div id="cam-date">PAŹ 14 2004  04:58:12</div></div>
+<div id="cam-overlay"><div id="cam-label"></div><div class="cam-rec"><span class="dot">&#9679;</span> REC</div><div id="cam-date">OCT 14 2004  04:58:12</div></div>
 <div id="tape-overlay">
   <div id="tape-head">PLAY &#9654;</div>
   <div id="tape-date"></div>
-  <div id="tape-label">TAŚMA 3</div>
+  <div id="tape-label">TAPE 3</div>
 </div>
 <div id="note-reader">
   <div class="paper">
@@ -79,66 +79,66 @@
 </div>
 <div id="journal">
   <div class="journal-box">
-    <h2>DZIENNIK</h2>
+    <h2>JOURNAL</h2>
     <div id="journal-objective"></div>
     <div id="journal-list"></div>
-    <div class="note-foot">Naciśnij numer notatki, aby ją przeczytać &nbsp;|&nbsp; [TAB] / [J] Zamknij</div>
+    <div class="note-foot">Press a note number to read it &nbsp;|&nbsp; [TAB] / [J] Close</div>
   </div>
 </div>
 <div id="menu">
   <div id="menu-main" class="panel">
-    <h1 id="title">ŚWIĘTA ŁUCJA</h1>
-    <div class="subtitle">taśma znaleziona 14.10.2004</div>
-    <button id="btn-continue" class="menu-btn hidden">Kontynuuj</button>
-    <button id="btn-start" class="menu-btn">Zacznij nagranie</button>
-    <button id="btn-start-nointro" class="menu-btn small hidden">Zacznij bez intra</button>
+    <h1 id="title" data-i18n="name.title">SAINT LUCY</h1>
+    <div class="subtitle">tape found 14.10.2004</div>
+    <button id="btn-continue" class="menu-btn hidden">Continue</button>
+    <button id="btn-start" class="menu-btn">Start recording</button>
+    <button id="btn-start-nointro" class="menu-btn small hidden">Start without intro</button>
     <button id="btn-mp" class="menu-btn">Multiplayer</button>
-    <button id="btn-achievements" class="menu-btn">Osiągnięcia</button>
-    <button id="btn-settings" class="menu-btn">Ustawienia</button>
-    <button id="btn-controls" class="menu-btn">Sterowanie</button>
-    <div id="headphones">Graj w słuchawkach. Po ciemku.</div>
-    <div id="photo-warning">Uwaga: gra zawiera migające światła, gwałtowne efekty obrazu i nagłe głośne dźwięki.</div>
+    <button id="btn-achievements" class="menu-btn">Achievements</button>
+    <button id="btn-settings" class="menu-btn">Settings</button>
+    <button id="btn-controls" class="menu-btn">Controls</button>
+    <div id="headphones">Play with headphones. In the dark.</div>
+    <div id="photo-warning">Warning: this game contains flashing lights, sudden visual effects and loud noises.</div>
     <div id="boot-error"></div>
-    <div id="copyright">© 2026 Szymon Rogalski · Wszelkie prawa zastrzeżone</div>
+    <div id="copyright">© 2026 Caqyx · All rights reserved</div>
   </div>
 </div>
 <div id="mp-panel" class="overlay-panel">
   <div class="panel">
     <h2 id="mp-title">MULTIPLAYER (CO-OP)</h2>
-    <label id="mp-nick-label">Twój pseudonim
+    <label id="mp-nick-label">Your nickname
       <input type="text" id="mp-nick" maxlength="16" autocomplete="off" spellcheck="false"></label>
-    <button id="btn-mp-create" class="menu-btn">Utwórz pokój</button>
+    <button id="btn-mp-create" class="menu-btn">Create room</button>
     <div class="mp-join-row">
-      <input type="text" id="mp-code-in" maxlength="6" autocomplete="off" spellcheck="false" placeholder="KOD">
-      <button id="btn-mp-join" class="menu-btn">Dołącz do pokoju</button>
+      <input type="text" id="mp-code-in" maxlength="6" autocomplete="off" spellcheck="false" placeholder="CODE">
+      <button id="btn-mp-join" class="menu-btn">Join room</button>
     </div>
     <div id="mp-join-choice" class="mp-choice">
-      <span>Dołączyć jako:</span>
-      <button id="btn-mp-play" class="menu-btn small">Graj</button>
-      <button id="btn-mp-watch" class="menu-btn small">Oglądaj</button>
+      <span>Join as:</span>
+      <button id="btn-mp-play" class="menu-btn small">Play</button>
+      <button id="btn-mp-watch" class="menu-btn small">Watch</button>
     </div>
     <div id="mp-error" class="mp-error"></div>
-    <button id="btn-mp-back" class="menu-btn back-btn">Wróć</button>
+    <button id="btn-mp-back" class="menu-btn back-btn">Back</button>
   </div>
 </div>
 <div id="lobby" class="overlay-panel">
   <div class="panel">
-    <h2 id="lobby-title">POKÓJ</h2>
-    <div id="lobby-code-label" class="mp-small">Kod pokoju</div>
-    <div class="lobby-code-row"><div id="lobby-code">------</div><button id="btn-lobby-copy" class="menu-btn small">Kopiuj</button></div>
+    <h2 id="lobby-title">ROOM</h2>
+    <div id="lobby-code-label" class="mp-small">Room code</div>
+    <div class="lobby-code-row"><div id="lobby-code">------</div><button id="btn-lobby-copy" class="menu-btn small">Copy</button></div>
     <div id="lobby-players"></div>
     <div id="lobby-specs" class="mp-small"></div>
-    <div id="lobby-diff"><div id="lobby-diff-label" class="mp-small">Poziom trudności</div>
-      <button id="btn-lobby-diff" class="menu-btn small quality-btn hidden" type="button">&#9668; Normalny &#9658;</button>
+    <div id="lobby-diff"><div id="lobby-diff-label" class="mp-small">Difficulty</div>
+      <button id="btn-lobby-diff" class="menu-btn small quality-btn hidden" type="button">&#9668; Normal &#9658;</button>
       <div id="lobby-diff-ro" class="lobby-diff-ro hidden"></div>
       <div id="lobby-diff-desc" class="mp-small"></div></div>
     <div id="lobby-msg" class="mp-small"></div>
     <div id="lobby-mic" class="mp-small"></div>
-    <button id="btn-lobby-mic" class="menu-btn small">Włącz mikrofon</button>
-    <button id="btn-lobby-ready" class="menu-btn">Jestem gotowy</button>
-    <button id="btn-lobby-start" class="menu-btn">Zacznij grę</button>
-    <button id="btn-lobby-start-nointro" class="menu-btn small hidden">Zacznij bez intra</button>
-    <button id="btn-lobby-leave" class="menu-btn small">Opuść pokój</button>
+    <button id="btn-lobby-mic" class="menu-btn small">Enable microphone</button>
+    <button id="btn-lobby-ready" class="menu-btn">I’m ready</button>
+    <button id="btn-lobby-start" class="menu-btn">Start game</button>
+    <button id="btn-lobby-start-nointro" class="menu-btn small hidden">Start without intro</button>
+    <button id="btn-lobby-leave" class="menu-btn small">Leave room</button>
   </div>
 </div>
 <div id="mp-status"></div>
@@ -148,93 +148,118 @@
 <div id="mp-spectate"></div>
 <div id="diff-panel" class="overlay-panel">
   <div class="panel">
-    <h2 id="diff-title">POZIOM TRUDNOŚCI</h2>
+    <h2 id="diff-title">DIFFICULTY</h2>
     <div id="diff-list"></div>
     <div id="diff-desc" class="mp-small"></div>
-    <button class="menu-btn back-btn">Wróć</button>
+    <button class="menu-btn back-btn">Back</button>
   </div>
 </div>
 <div id="ach-panel" class="overlay-panel">
   <div class="panel ach-box">
-    <h2>OSIĄGNIĘCIA</h2>
+    <h2>ACHIEVEMENTS</h2>
     <div id="ach-list"></div>
-    <button class="menu-btn back-btn">Wróć</button>
+    <button class="menu-btn back-btn">Back</button>
   </div>
 </div>
 <div id="settings-panel" class="overlay-panel">
   <div class="panel">
-    <h2>USTAWIENIA</h2>
-    <label>Czułość myszy <span id="val-sens"></span>
+    <h2>SETTINGS</h2>
+    <label>Mouse sensitivity <span id="val-sens"></span>
       <input type="range" id="set-sens" min="0.2" max="3" step="0.05"></label>
-    <label>Głośność <span id="val-vol"></span>
+    <label>Field of view (FOV) <span id="val-fov"></span>
+      <input type="range" id="set-fov" min="60" max="100" step="1"></label>
+    <label class="check-row"><input type="checkbox" id="set-invert"> <span id="lab-invert">Invert mouse and stick Y</span></label>
+    <label>Gamepad look sensitivity <span id="val-padsens"></span>
+      <input type="range" id="set-padsens" min="0.3" max="3" step="0.05"></label>
+    <label>Master volume <span id="val-vol"></span>
       <input type="range" id="set-vol" min="0" max="1" step="0.01"></label>
-    <label>Efekt VHS <span id="val-vhs"></span>
+    <label>Sound effects <span id="val-sfx"></span>
+      <input type="range" id="set-sfx" min="0" max="1" step="0.01"></label>
+    <label>Music <span id="val-music"></span>
+      <input type="range" id="set-music" min="0" max="1" step="0.01"></label>
+    <label>Voice chat <span id="val-voice"></span>
+      <input type="range" id="set-voice" min="0" max="1.5" step="0.01"></label>
+    <label>VHS effect <span id="val-vhs"></span>
       <input type="range" id="set-vhs" min="0" max="1" step="0.01"></label>
-    <label>Jasność <span id="val-bright"></span>
+    <label>Brightness <span id="val-bright"></span>
       <input type="range" id="set-bright" min="0.7" max="1.4" step="0.01"></label>
-    <label class="check-row"><input type="checkbox" id="set-reduce-voices"> <span id="lab-reduce-voices">Mniej głosów (rzadsze jęki i upiorne głosy)</span></label>
-    <div id="quality-label" class="quality-label">Grafika <span id="val-quality"></span></div>
+    <label class="check-row"><input type="checkbox" id="set-reduce-voices"> <span id="lab-reduce-voices">Fewer voices (rarer moans and ghostly voices)</span></label>
+    <div id="subsize-label" class="quality-label">Subtitle size</div>
+    <button id="set-subsize" class="menu-btn quality-btn" type="button">&#9668; Medium &#9658;</button>
+    <div id="quality-label" class="quality-label">Graphics <span id="val-quality"></span></div>
     <button id="set-quality" class="menu-btn quality-btn" type="button" aria-describedby="quality-note">◄ ►</button>
     <div id="quality-note"></div>
-    <button class="menu-btn back-btn">Wróć</button>
+    <button class="menu-btn back-btn">Back</button>
   </div>
 </div>
 <div id="controls-panel" class="overlay-panel">
   <div class="panel">
-    <h2>STEROWANIE</h2>
+    <h2>CONTROLS</h2>
     <table class="controls">
-      <tr><td>W A S D</td><td>ruch</td></tr>
-      <tr><td>Mysz</td><td>rozglądanie się</td></tr>
-      <tr><td>Shift</td><td>bieg (męczy)</td></tr>
-      <tr><td>C</td><td>kucanie (przełącz, ciszej)</td></tr>
-      <tr><td>F</td><td>latarka</td></tr>
-      <tr><td>N</td><td>noktowizor kamery (zielony obraz, zjada baterię kamery; wyłącza latarkę)</td></tr>
-      <tr><td>Prawy przycisk myszy (przytrzymaj)</td><td>wzmocniona latarka (płoszy potwora, szybko zjada baterię)</td></tr>
-      <tr><td>V</td><td>wyciszenie mikrofonu (multiplayer)</td></tr>
-      <tr><td>R</td><td>potrząsanie latarką (gdy gaśnie)</td></tr>
-      <tr><td>E</td><td>użyj / podnieś / schowaj się</td></tr>
-      <tr><td>Tab / J</td><td>dziennik</td></tr>
-      <tr><td>Esc</td><td>pauza</td></tr>
-      <tr><td>Spacja (przytrzymaj)</td><td>pominięcie przerywnika / sceny intra</td></tr>
-      <tr><td>Shift + Spacja</td><td>pominięcie całego intra</td></tr>
+      <tr><td>W A S D</td><td>movement</td></tr>
+      <tr><td>Mouse</td><td>look around</td></tr>
+      <tr><td>Shift</td><td>sprint (tiring)</td></tr>
+      <tr><td>C</td><td>crouch (toggle, quieter)</td></tr>
+      <tr><td>F</td><td>flashlight</td></tr>
+      <tr><td>N</td><td>camera night vision (green image, drains the camera battery; turns the flashlight off)</td></tr>
+      <tr><td>Right mouse button (hold)</td><td>boosted flashlight (scares the monster, drains the battery fast)</td></tr>
+      <tr><td>V</td><td>mute the microphone (multiplayer)</td></tr>
+      <tr><td>R</td><td>shake the flashlight (when it dies)</td></tr>
+      <tr><td>E</td><td>use / pick up / hide</td></tr>
+      <tr><td>Tab / J</td><td>journal</td></tr>
+      <tr><td>Esc</td><td>pause</td></tr>
+      <tr><td>Space (hold)</td><td>skip a cutscene / intro scene</td></tr>
+      <tr><td>Shift + Space</td><td>skip the whole intro</td></tr>
     </table>
-    <button class="menu-btn back-btn">Wróć</button>
+    <div id="pad-help" class="mp-small" data-i18n="ctl.pad"></div>
+    <button id="btn-rebind" class="menu-btn">Change keys</button>
+    <button class="menu-btn back-btn">Back</button>
+  </div>
+</div>
+<div id="rebind-panel" class="overlay-panel">
+  <div class="panel">
+    <h2 id="rb-title">KEY BINDINGS</h2>
+    <div id="rb-hint" class="mp-small"></div>
+    <div id="rb-list"></div>
+    <div id="rb-msg" class="mp-small"></div>
+    <button id="btn-rb-reset" class="menu-btn">Restore defaults</button>
+    <button class="menu-btn back-btn">Back</button>
   </div>
 </div>
 <div id="pause">
   <div class="panel">
-    <h2>PAUZA</h2>
+    <h2>PAUSED</h2>
     <div id="pause-objective"></div>
     <div id="pause-diff"></div>
-    <button id="btn-resume" class="menu-btn">Wróć do nagrania</button>
-    <button id="btn-pause-settings" class="menu-btn">Ustawienia</button>
-    <button id="btn-pause-controls" class="menu-btn">Sterowanie</button>
-    <button id="btn-pause-menu" class="menu-btn">Menu główne</button>
+    <button id="btn-resume" class="menu-btn">Back to the recording</button>
+    <button id="btn-pause-settings" class="menu-btn">Settings</button>
+    <button id="btn-pause-controls" class="menu-btn">Controls</button>
+    <button id="btn-pause-menu" class="menu-btn">Main menu</button>
     <div id="resume-hint"></div>
   </div>
 </div>
 <div id="death">
   <div id="death-face"></div>
   <div id="death-panel">
-    <div class="lost">SYGNAŁ UTRACONY</div>
+    <div class="lost">SIGNAL LOST</div>
     <div class="lost-sub">NO SIGNAL &nbsp; CH 03</div>
-    <div class="lost-info">Wracasz do początku rozdziału.</div>
-    <button id="btn-retry" class="menu-btn">[SPACJA] Przewiń taśmę</button>
-    <button id="btn-death-menu" class="menu-btn">Menu główne</button>
+    <div class="lost-info">You return to the start of the chapter.</div>
+    <button id="btn-retry" class="menu-btn">[SPACE] Rewind the tape</button>
+    <button id="btn-death-menu" class="menu-btn">Main menu</button>
   </div>
 </div>
 <div id="ending">
   <div id="ending-text"></div>
   <div id="credits">
-    <div class="credits-title">ŚWIĘTA ŁUCJA</div>
+    <div class="credits-title" data-i18n="name.title">SAINT LUCY</div>
     <div id="ending-name"></div>
     <div class="credits-line small" id="ending-count"></div>
-    <div class="credits-line">Twórca: Szymon Rogalski</div>
-    <div class="credits-line">Tekstury: ambientCG (CC0) · Dźwięki: OpenGameArt (CC0) i proceduralne</div>
-    <div class="credits-line small">© 2026 Szymon Rogalski. Wszelkie prawa zastrzeżone.</div>
-    <div class="credits-line">Żadna taśma nie ucierpiała. Prawie.</div>
+    <div class="credits-line">Created by Caqyx</div>
+    <div class="credits-line">Textures: ambientCG (CC0) · Sounds: OpenGameArt (CC0) and procedural</div>
+    <div class="credits-line small">© 2026 Caqyx. All rights reserved.</div>
+    <div class="credits-line">No tape was harmed. Almost.</div>
     <div class="credits-line small" id="notes-found"></div>
-    <button id="btn-ending-menu" class="menu-btn">Menu główne</button>
+    <button id="btn-ending-menu" class="menu-btn">Main menu</button>
   </div>
 </div>
 <script>
@@ -242,47 +267,73 @@
    progress = weighted share of loaded scripts + build stages reported by main.js via Boot.set(). */
 (function () {
   var B = window.Boot = { pct: 0, target: 0, failed: false, hidden: false };
+  // saved language: show the loading label in English right from the first paint (i18n.js takes over once it has loaded)
+  // default language is English (no auto-detection); only a stored Polish choice switches the static label
+  var bootEn = true, bootLg = 'en';
+  var BOOT_TXT = { en: ['SAINT LUCY', 'LOADING TAPE…'], pl: ['ŚWIĘTA ŁUCJA', 'ŁADOWANIE TAŚMY…'], es: ['SANTA LUCÍA', 'CARGANDO CINTA…'], de: ['SANKT LUCIA', 'BAND WIRD GELADEN…'], fr: ['SAINTE-LUCIE', 'CHARGEMENT DE LA CASSETTE…'], it: ['SANTA LUCIA', 'CARICAMENTO DEL NASTRO…'], pt: ['SANTA LUZIA', 'CARREGANDO A FITA…'] };
+  try { var sl0 = window.localStorage.getItem('lucja_lang'); if (sl0 && BOOT_TXT.hasOwnProperty(sl0)) bootLg = sl0; } catch (e) { /* storage unavailable */ }
+  bootEn = bootLg === 'en';
+  document.documentElement.setAttribute('lang', bootLg);
+  if (!bootEn) { var bl0 = document.getElementById('boot-label'), bt0 = document.getElementById('boot-title'); if (bl0) bl0.textContent = BOOT_TXT[bootLg][1]; if (bt0) bt0.textContent = BOOT_TXT[bootLg][0]; document.title = BOOT_TXT[bootLg][0]; }
+  var EN_FB = { 'boot.failed': 'LOADING ERROR', 'boot.noScript': 'Failed to load file: ', 'boot.noThree': 'Failed to load Three.js — an internet connection is needed on first launch. Check your connection and refresh the page.' };
   var fill = document.getElementById('boot-fill'), pct = document.getElementById('boot-pct'), label = document.getElementById('boot-label'), errEl = document.getElementById('boot-err'), scr = document.getElementById('boot-screen');
-  function tt(k, v) { try { var r = window.T ? window.T(k) : k; return (r === k || r == null) ? v : r; } catch (e) { return v; } }
+  function tt(k, v) { try { var r = window.T ? window.T(k) : k; return (r === k || r == null) ? ((bootEn && EN_FB[k]) || v) : r; } catch (e) { return (bootEn && EN_FB[k]) || v; } }
   function draw() { var p = Math.round(B.pct); if (fill) fill.style.width = p + '%'; if (pct) pct.textContent = p + '%'; }
   // smooth creep toward the target (heavy scripts report nothing while they download)
-  setInterval(function () { if (B.failed) return; if (B.pct < B.target) B.pct = Math.min(B.target, B.pct + Math.max(0.4, (B.target - B.pct) * 0.15)); else if (B.pct < B.cap) B.pct += 0.08; draw(); }, 50);
+  var creep = setInterval(function () { if (B.failed) return; if (B.pct < B.target) B.pct = Math.min(B.target, B.pct + Math.max(0.4, (B.target - B.pct) * 0.15)); else if (B.pct < B.cap) B.pct += 0.08; draw(); }, 50);
   B.cap = 0;
   B.set = function (p, text) { if (B.failed) return; if (p > B.target) B.target = Math.min(100, p); B.cap = Math.min(99, B.target + 6); if (text && label) label.textContent = text; };
   B.fail = function (msg) {
-    if (B.failed || B.hidden) return; B.failed = true;
+    if (B.failed || B.hidden) return; B.failed = true; clearInterval(creep);
     if (scr) scr.className += ' err';
     if (label) label.textContent = tt('boot.failed', 'BŁĄD ŁADOWANIA');
     if (errEl) errEl.textContent = msg;
   };
   B.done = function () {
-    if (B.failed || B.hidden) return; B.hidden = true; B.target = B.pct = 100; draw();
+    if (B.failed || B.hidden) return; B.hidden = true; B.target = B.pct = 100; draw(); clearInterval(creep);
     setTimeout(function () { if (scr) scr.className += ' gone'; setTimeout(function () { if (scr && scr.parentNode) scr.parentNode.removeChild(scr); }, 700); }, 150);
   };
   window.addEventListener('error', function (e) {
     if (B.hidden || B.failed) return;
     if (e && e.target && e.target !== window) return;   // resource errors are handled by the loader
+    // only an error thrown by a REQUIRED script (or this page) is fatal; optional scripts (musicdata, supabase) and opaque
+    // cross-origin "Script error." events are logged and ignored
+    if (!fatalSource(e && e.filename)) { try { console.warn('[boot] non-fatal script error ignored:', (e && e.message) || e, (e && e.filename) || ''); } catch (x) { /* ignore */ } return; }
     B.fail((e && e.message) || 'error');
   });
+  function fatalSource(fn) {
+    if (!fn) return false;
+    var page = String(location.href).split('#')[0].split('?')[0];
+    if (String(fn).split('#')[0].split('?')[0] === page) return true;
+    for (var j = 0; j < L.length; j++) {
+      if (L[j][2] === 'opt') continue;
+      var src = L[j][0];
+      if (src.indexOf('http') === 0 ? fn.indexOf(src) === 0 : (fn.length >= src.length && fn.lastIndexOf(src) === fn.length - src.length)) return true;
+    }
+    return false;
+  }
   var cdnMsg = function () { return tt('boot.noThree', 'Nie udało się wczytać Three.js — potrzebne połączenie z internetem przy pierwszym uruchomieniu. Sprawdź połączenie i odśwież stronę.'); };
-  // [src, weight, kind]  kind: 'req' (failure = fatal), 'cdn' (three.js), 'opt' (failure ignored)
+  // [src, weight, kind, sri]  kind: 'req' (failure = fatal), 'cdn' (three.js), 'opt' (failure ignored)
   var L = [
-    ['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 10, 'cdn'],
-    ['js/i18n.js', 1], ['js/progress.js', 1], ['js/texdata.js', 30], ['js/textures.js', 4], ['js/fx.js', 1], ['js/atmos.js', 1],
-    ['js/sounddata.js', 14], ['js/musicdata.js', 8, 'opt'], ['js/audio.js', 4], ['js/doorfx.js', 1], ['js/level.js', 4], ['js/avatar.js', 1],
-    ['js/player.js', 1], ['js/monster.js', 3], ['js/scares.js', 2], ['js/fear.js', 1], ['js/puzzles.js', 1], ['js/story.js', 2],
+    ['https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js', 10, 'cdn', 'sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu'],
+    ['js/i18n.js', 1], ['js/lang/en.js', 1], ['js/lang/pl.js', 1], ['js/lang/es.js', 1], ['js/lang/de.js', 1], ['js/lang/fr.js', 1], ['js/lang/it.js', 1], ['js/lang/pt.js', 1], ['js/progress.js', 1], ['js/texdata.js', 30], ['js/textures.js', 4], ['js/fx.js', 1], ['js/atmos.js', 1],
+    ['js/sounddata.js', 14], ['js/musicdata.js', 8, 'opt'], ['js/audio.js', 4], ['js/doorfx.js', 1], ['js/geo3d.js', 1, 'opt'], ['js/level.js', 4], ['js/avatar.js', 1],
+    ['js/player.js', 1], ['js/monster.js', 3], ['js/scares.js', 2], ['js/fear.js', 1], ['js/puzzles.js', 1], ['js/stats.js', 1, 'opt'], ['js/story.js', 2],
     ['js/sidequests.js', 1], ['js/archive.js', 2], ['js/intro.js', 3], ['js/flashboost.js', 1], ['js/spectator.js', 1],
-    ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js', 3, 'opt'],
-    ['js/net.js', 2], ['js/voice.js', 1], ['js/ui.js', 1], ['js/main.js', 1]
+    ['https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js', 3, 'opt', 'sha384-0w2KAL2YHP6wKOkUDzkCDGgVvfmHnj02DHeQ6XcHOgTfFsGyonKOpShMH1x6nk9o'],
+    ['js/net.js', 2], ['js/voice.js', 1], ['js/ui.js', 1], ['js/extras.js', 1, 'opt'], ['js/main.js', 1]
   ];
   var total = 0, got = 0, i;
   for (i = 0; i < L.length; i++) total += L[i][1];
   var LOADSHARE = 40;   // scripts = first 40% of the bar, build stages (main.js) the rest
   function mk(item) {
     var el = document.createElement('script');
-    el.async = false; el.src = item[0];
+    el.async = false;
+    if (item[3]) { el.integrity = item[3]; el.crossOrigin = 'anonymous'; }     // SRI for the CDN scripts
+    el.src = item[0];
     el.onload = function () {
       got += item[1]; B.set(got / total * LOADSHARE);
+      if (item[0] === 'js/lang/pt.js' && window.I18N && I18N.applyBoot) I18N.applyBoot();   // last language file: language is final BEFORE any world building
       if (item[2] === 'cdn' && !window.THREE) B.fail(cdnMsg());
     };
     el.onerror = function () {

@@ -36,4 +36,4 @@ Tekstury (ambientCG) i dźwięki (OpenGameArt) są na licencji CC0 i są wbudowa
 
 ## Licencja
 
-© 2026 Szymon Rogalski. Wszelkie prawa zastrzeżone. Możesz grać za darmo, ale nie wolno kopiować, modyfikować ani publikować gry gdzie indziej. Szczegóły: [`LICENSE`](LICENSE).
+© 2026 Caqyx. Wszelkie prawa zastrzeżone. Możesz grać za darmo, ale nie wolno kopiować, modyfikować ani publikować gry gdzie indziej. Szczegóły: [`LICENSE`](LICENSE).
